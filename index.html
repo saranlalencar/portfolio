@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#16261F" />
+
+    <!--
+      SEO estatico (fallback). O titulo e a descricao sao atualizados em tempo de
+      execucao a partir de src/data/profile.ts assim que o nome real for preenchido.
+      Ver src/lib/seo.ts
+    -->
+    <title>Portfolio — Estudante de Ciencia da Computacao | IFCE Campus Maracanau</title>
+    <meta
+      name="description"
+      content="Portfolio de estudante de Ciencia da Computacao do IFCE — Campus Maracanau. Projetos de aplicacoes web, sistemas de gestao e analise de dados."
+    />
+    <link rel="canonical" href="/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Portfolio" />
+    <meta property="og:title" content="Portfolio — Estudante de Ciencia da Computacao | IFCE Campus Maracanau" />
+    <meta
+      property="og:description"
+      content="Projetos de aplicacoes web, sistemas de gestao e analise de dados desenvolvidos durante a graduacao em Ciencia da Computacao."
+    />
+    <!-- Substitua por uma URL absoluta (https://seu-dominio.com/og-image.png) apos o deploy -->
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Marca do portfolio sobre um ceu noturno esverdeado com estrelas." />
+    <meta property="og:url" content="/" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Portfolio — Estudante de Ciencia da Computacao | IFCE Campus Maracanau" />
+    <meta
+      name="twitter:description"
+      content="Projetos de aplicacoes web, sistemas de gestao e analise de dados desenvolvidos durante a graduacao em Ciencia da Computacao."
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--
+      Tema antes da primeira pintura.
+      Precisa ser um script inline e sincrono: se esperasse o bundle React, a
+      pagina piscaria no tema errado por um instante para quem escolheu o modo
+      diurno. Escolha salva > preferencia do sistema > noturno.
+    -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('portfolio-tema')
+          var theme =
+            saved === 'dark' || saved === 'light'
+              ? saved
+              : window.matchMedia('(prefers-color-scheme: light)').matches
+                ? 'light'
+                : 'dark'
+          document.documentElement.dataset.theme = theme
+          var meta = document.querySelector('meta[name="theme-color"]')
+          if (meta) meta.setAttribute('content', theme === 'light' ? '#F1F0E2' : '#16261F')
+        } catch (e) {
+          document.documentElement.dataset.theme = 'dark'
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <div style="max-width: 40rem; margin: 4rem auto; padding: 0 1.5rem; font-family: system-ui, sans-serif; color: #f2efe3; background: #16261f;">
+        <h1 style="font-size: 1.5rem;">Estudante de Ciencia da Computacao — IFCE Campus Maracanau</h1>
+        <p style="color: #c7dca9; line-height: 1.6;">
+          Este portfolio precisa de JavaScript habilitado para ser exibido. Habilite o JavaScript
+          no navegador para acessar as secoes de projetos, tecnologias, formacao e contato.
+        </p>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

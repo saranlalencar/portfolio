@@ -1,0 +1,792 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   SISTEMA VISUAL — "Jardim Noturno"
+   --------------------------------------------------------------------------
+   Paleta derivada de duas referencias em /fotos:
+
+     · o lago noturno  -> ceu periwinkle carregado de nuvens, luz de lua ambar,
+                          colinas indigo e pinheiros quase pretos;
+     · a mesa na mata  -> folhagem verde-teal escura, madeira quente, creme do
+                          notebook e um azul de tela como acento frio.
+
+   Dai vem a divisao do tema noturno: o CEU e periwinkle e a LUZ e ambar; o
+   CHAO e verde-teal profundo. Nada de cinza neutro nem de oliva apagado.
+
+   Contraste verificado sobre o fundo base (#101F1A):
+     creme  #EFE9D8 -> 13,6:1   |  verde claro #B5CDB5 -> 10,0:1
+     verde  #58B87A ->  7,0:1   |  ambar       #EFCE8C -> 11,4:1
+     verde medio #8CAF93 -> 7,1:1  |  periwinkle #8E96D6 -> 5,6:1
+   Todos os pares usados em texto superam 4,5:1 (AA) — a maioria passa de 7:1.
+   ========================================================================== */
+
+@theme {
+  /* --------------------------------------------------------- superficies */
+  --color-night: #101f1a; /* fundo principal — folhagem escura    */
+  --color-night-2: #172c26; /* fundo alternado entre secoes         */
+  --color-surface: #1e3a31; /* cards, paineis, menus                */
+  --color-surface-2: #274a3e; /* estado elevado / hover               */
+
+  /* Linhas: sempre uma mistura do fundo com o verde, nunca cinza neutro. */
+  --color-line: #2b4e42;
+  --color-line-strong: #3d6455;
+
+  /* -------------------------------------------------------------- texto */
+  --color-fg: #efe9d8; /* creme — titulos e texto principal      */
+  --color-sand: #f0dcae; /* creme quente da luz da lua            */
+  --color-muted: #b5cdb5; /* verde claro — texto secundario        */
+  --color-subtle: #8caf93; /* verde medio — rotulos e meta          */
+
+  /* ------------------------------------------------------------ acentos */
+  --color-accent: #58b87a; /* verde folha — CTAs, links, ativos    */
+  --color-accent-strong: #8ad79c; /* verde claro — hover e destaques      */
+  --color-moss: #2f6b45; /* verde de mata — vegetacao            */
+  --color-iris: #8e96d6; /* periwinkle — o ceu da referencia     */
+  --color-indigo: #3d4a80; /* indigo — colinas distantes           */
+  --color-gold: #efce8c; /* ambar — a luz da lua                 */
+  --color-wood: #a0703f; /* madeira quente — poleiro e detalhes  */
+  --color-berry: #c0392b; /* vermelho de cogumelo — SO decorativo, nunca em UI */
+
+  /* -------------------------------------------------------- ilustracao */
+  /*
+    Creme fixo: NAO muda entre os temas. E o branco das ilustracoes (disco
+    facial da coruja, petalas, lua, talo do cogumelo) — se ele acompanhasse o
+    tema, a coruja ficaria de rosto marrom no modo diurno.
+  */
+  --color-cream: #efe9d8;
+
+  /*
+    Atmosfera: brilhos difusos e o campo de cor da cena do hero. Sao os unicos
+    tokens cujo PAPEL muda entre os temas — de luz noturna para luz do dia.
+
+    A noite segue a composicao da referencia do lago: ceu periwinkle em cima,
+    luz ambar da lua no meio, mata verde-escura embaixo.
+  */
+  --color-aura-warm: #efce8c; /* luz da lua      */
+  --color-aura-cool: #8e96d6; /* ceu periwinkle  */
+  --color-wash-1: #8e96d6; /* ceu alto da cena       */
+  --color-wash-2: #c3c8ea; /* nuvem iluminada        */
+  --color-wash-3: #3d4a80; /* indigo das colinas     */
+  --color-wash-4: #12241d; /* mata escura, embaixo   */
+
+  /*
+    Colinas da paisagem do rodape. A noite sao as montanhas azuis da referencia
+    do lago; de dia precisam ser VERDES — indigo sobre fundo claro vira cinza.
+  */
+  --color-hill-far: #3d4a80;
+  --color-hill-near: #233145;
+
+  /* --------------------------------------------------------- tipografia */
+  --font-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* ---------------------------------------------------------- movimento */
+  --ease-organic: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   TEMA DIURNO
+   --------------------------------------------------------------------------
+   O mesmo jardim, ao sol. Nenhum componente muda: apenas os valores dos
+   tokens sao substituidos aqui.
+
+   Os nomes dos tokens sao SLOTS, nao cores literais:
+     --color-night    = fundo da pagina        (verde escuro | creme)
+     --color-night-2  = fundo alternado
+     --color-surface  = cartoes e paineis
+     --color-fg       = texto principal
+   Ler "night" como "fundo base" evita confusao ao editar o tema claro.
+
+   A referencia diurna e a do gato ao sol: parede turquesa, capim
+   verde-amarelado atravessado de luz, pedra clara e o animal escuro em
+   contraste. O texto principal usa exatamente o azul-violeta do gato.
+
+   Contraste verificado sobre o fundo diurno (#EDF2E6):
+     texto  #2C2C42 -> 11,9:1   |  secundario #3E5A4C -> 6,5:1
+     verde  #3E6B24 ->  5,5:1   |  rotulos    #456B51 -> 5,3:1
+     bege   #7A5C3A ->  5,3:1   |  ambar      #8A5F12 -> 4,9:1
+   ========================================================================== */
+:root[data-theme='light'] {
+  /* superficies — a luz alta e a pedra clara da referencia */
+  --color-night: #edf2e6;
+  --color-night-2: #dee9d3;
+  --color-surface: #f6faf5;
+  --color-surface-2: #e6f0e8;
+  --color-line: #c3d8cb;
+  --color-line-strong: #9fbfaa;
+
+  /* texto: o azul-violeta do gato, nunca preto */
+  --color-fg: #2c2c42;
+  --color-sand: #7a5c3a;
+  --color-muted: #3e5a4c;
+  --color-subtle: #456b51;
+
+  /* acentos: o verde do capim, escurecido para o fundo claro */
+  --color-accent: #3e6b24;
+  --color-accent-strong: #2c4f19;
+  --color-moss: #5c8a3a;
+  --color-iris: #2f8fa3; /* turquesa da parede */
+  --color-indigo: #2c3a52;
+  --color-gold: #8a5f12;
+  --color-wood: #6b4a2e;
+  --color-berry: #a93b2b;
+
+  /*
+    Atmosfera: a luz deixa de ser da lua e passa a ser do sol.
+
+    A cena tambem se inverte. A noite, o alto e ceu periwinkle e o fundo
+    profundo e a mata; de dia, o alto e a parede turquesa e o profundo vira
+    verde de sombra — mantendo a direcao da luz (claro em cima, denso embaixo).
+  */
+  --color-aura-warm: #f2d98a;
+  --color-aura-cool: #79ceda;
+  --color-wash-1: #8fd8e2; /* turquesa ao sol      */
+  --color-wash-2: #eaf7f2; /* luz alta             */
+  --color-wash-3: #8fb85a; /* capim iluminado      */
+  --color-wash-4: #3e6b4a; /* verde de sombra      */
+
+  /* colinas verdes, com a mais distante esmaecida pela luz */
+  --color-hill-far: #a9c596;
+  --color-hill-near: #8fb570;
+}
+
+/*
+  Estrelas de dia nao existem. Em vez de removermos os elementos (o que mudaria
+  a composicao), eles ficam quase transparentes e passam a ler como poeira de
+  polen na luz.
+*/
+:root[data-theme='light'] .starfield,
+:root[data-theme='light'] .starmap {
+  opacity: 0.22;
+}
+
+/* O grao da textura precisa de outro modo de mistura sobre fundo claro. */
+:root[data-theme='light'] body::after {
+  mix-blend-mode: multiply;
+  opacity: 0.035;
+}
+
+/*
+  Transicao ao trocar de tema — feita pela API de View Transitions.
+
+  A abordagem anterior (uma `transition` num seletor universal) animava cor,
+  borda e fundo de praticamente todo elemento da pagina ao mesmo tempo. Como a
+  troca de tema muda os tokens de cor, cada quadro dessa animacao obrigava o
+  navegador a repintar os gradientes, as camadas desfocadas e as com
+  `mix-blend-mode`. O resultado era pesado.
+
+  Aqui so definimos a duracao: o cross-fade em si e feito entre dois retratos
+  da pagina, no compositor (ver src/lib/theme.ts).
+*/
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+  animation-timing-function: var(--ease-organic);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem; /* compensa a navbar fixa nas ancoras */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-night);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /*
+    Textura de grao. Precisa ser quase imperceptivel: existe apenas para que
+    as grandes areas escuras nao pareçam chapadas. Uma unica camada fixa, sem
+    custo de layout e sem interferir em cliques.
+  */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.045;
+    mix-blend-mode: overlay;
+    background-size: 160px 160px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  /* Titulos de maior peso editorial usam a serifada. */
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /*
+    h3/h4 seguem na sans: dentro dos cartoes de projeto a leitura precisa ser
+    objetiva, e a serifada em corpo pequeno perde legibilidade.
+  */
+  h3,
+  h4 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-accent) 32%, transparent);
+    color: var(--color-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-strong);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-night);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+    border-radius: 999px;
+    border: 2px solid var(--color-night);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--color-accent) 50%, var(--color-line-strong));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* ---------------------------------------------------------------- layout */
+  .container-page {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-page {
+      padding-inline: 3rem;
+    }
+  }
+
+  /* ------------------------------------------------------------ tipografia */
+  .text-display {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 1.7rem + 6vw, 6rem);
+    line-height: 0.98;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .text-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.125rem, 1.4rem + 3vw, 3.5rem);
+    line-height: 1.06;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .text-serif-lead {
+    font-family: var(--font-display);
+    font-size: clamp(1.375rem, 1.05rem + 1.4vw, 1.875rem);
+    line-height: 1.4;
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  /*
+    Rotulo curto em caixa alta. Substitui a fonte monoespacada: duas familias
+    bastam para o sistema, e o tracking ja cria a hierarquia necessaria.
+  */
+  .meta {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /*
+    Cormorant Garamond usa algarismos old-style por padrao: "01" sai parecido
+    com "OI". Onde um numeral serifado precisa ser lido como numero, forcamos
+    os algarismos altos.
+  */
+  .numeral {
+    font-variant-numeric: lining-nums tabular-nums;
+    font-feature-settings: 'lnum' 1, 'tnum' 1;
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(
+      104deg,
+      var(--color-fg) 0%,
+      var(--color-fg) 42%,
+      var(--color-sand) 68%,
+      var(--color-gold) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  /* ---------------------------------------------------------------- cartoes */
+  .surface {
+    background-color: color-mix(in srgb, var(--color-surface) 72%, transparent);
+    border: 1px solid var(--color-line);
+    border-radius: 1.125rem;
+  }
+
+  .surface-interactive {
+    transition:
+      border-color 0.45s var(--ease-organic),
+      transform 0.45s var(--ease-organic),
+      background-color 0.45s var(--ease-organic);
+  }
+
+  .surface-interactive:hover {
+    border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-line));
+    background-color: color-mix(in srgb, var(--color-surface-2) 78%, transparent);
+    transform: translateY(-3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .surface-interactive:hover {
+      transform: none;
+    }
+  }
+
+  /* Filete luminoso no topo do cartao, revelado no hover. */
+  .edge-light::before {
+    content: '';
+    position: absolute;
+    inset-inline: 1.5rem;
+    top: -1px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--color-accent-strong) 75%, transparent),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.45s var(--ease-organic);
+  }
+
+  .edge-light:hover::before,
+  .edge-light:focus-within::before {
+    opacity: 1;
+  }
+
+  /* ------------------------------------------------- midia do hero (foto) */
+  /*
+    Campo de cor da cena do hero, montado sobre os tokens --wash-*: a noite usa
+    verdes sobre indigo; o dia troca por relva ao sol sobre ceu azul. A
+    composicao das camadas (claro em cima, profundo embaixo) e a mesma.
+  */
+  .media-wash {
+    background-color: var(--color-wash-3);
+    background-image:
+      /* ponto mais alto da cena */
+      radial-gradient(72% 50% at 26% 12%, color-mix(in srgb, var(--color-wash-2) 62%, transparent) 0%, transparent 56%),
+      /* campo principal */
+      radial-gradient(96% 68% at 30% 24%, color-mix(in srgb, var(--color-wash-1) 72%, transparent) 0%, transparent 62%),
+      /* meio-tom */
+      radial-gradient(74% 56% at 74% 34%, color-mix(in srgb, var(--color-wash-3) 70%, transparent) 0%, transparent 60%),
+      radial-gradient(52% 38% at 60% 6%, color-mix(in srgb, var(--color-cream) 18%, transparent) 0%, transparent 58%),
+      /* fundo profundo, fechando a transicao */
+      radial-gradient(100% 82% at 84% 92%, color-mix(in srgb, var(--color-wash-4) 88%, transparent) 0%, transparent 66%),
+      radial-gradient(80% 60% at 16% 76%, color-mix(in srgb, var(--color-wash-3) 55%, transparent) 0%, transparent 64%),
+      linear-gradient(158deg, var(--color-wash-1) 0%, var(--color-wash-3) 52%, var(--color-wash-4) 100%);
+  }
+
+  /*
+    Nuvens. A referencia do lago e quase toda nuvem: faixas alongadas e macias
+    atravessando o ceu. Aqui elas sao elipses borradas que derivam devagar
+    demais para chamar atencao — atmosfera, nao animacao.
+  */
+  .cloud {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(26px);
+    animation: cloud-drift 90s linear infinite alternate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cloud {
+      animation: none;
+    }
+  }
+
+  /* Manchas de luz que se deslocam devagar dentro da moldura. */
+  .aurora {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(28px);
+    animation: drift 26s var(--ease-organic) infinite alternate;
+  }
+
+  .anim-orbit {
+    animation: orbit 72s linear infinite;
+    transform-origin: center;
+  }
+
+  /* Segundo anel, mais lento e em sentido contrario: cria profundidade. */
+  .anim-orbit-reverse {
+    animation: orbit 104s linear infinite reverse;
+    transform-origin: center;
+  }
+
+  .anim-breathe {
+    animation: breathe 9s ease-in-out infinite;
+  }
+
+  /* Vaga-lume: percurso errante nos dois eixos, e nao so vertical. */
+  .anim-wander {
+    animation: wander 18s ease-in-out infinite alternate;
+  }
+
+  /* Esporos subindo da vegetacao — aparecem e somem, nunca piscam. */
+  .anim-rise {
+    animation: rise 15s linear infinite;
+  }
+
+  /*
+    Piscar da coruja: dois quadros de pixel art empilhados, trocados com
+    steps(1) — o corte seco e proprio da animacao quadro a quadro. O olho
+    fechado dura ~0,3s a cada 7s, entao e um gesto, nao um pisca-pisca.
+  */
+  .anim-blink-open {
+    animation: blink-open 7s steps(1, end) infinite;
+  }
+
+  .anim-blink-closed {
+    opacity: 0;
+    animation: blink-closed 7s steps(1, end) infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora,
+    .anim-orbit,
+    .anim-orbit-reverse,
+    .anim-breathe,
+    .anim-wander,
+    .anim-rise,
+    .anim-blink-open,
+    .anim-blink-closed {
+      animation: none;
+    }
+
+    /* Sem movimento, os esporos ficariam invisiveis (opacidade inicial 0). */
+    .anim-rise {
+      opacity: 0.5;
+    }
+  }
+
+  /* -------------------------------------------------------------- atmosfera */
+  /* Ceu estrelado discreto: dois campos de pontos em escalas diferentes. */
+  .starmap {
+    background-image:
+      radial-gradient(circle, color-mix(in srgb, var(--color-accent-strong) 34%, transparent) 1px, transparent 1.5px),
+      radial-gradient(circle, color-mix(in srgb, var(--color-gold) 26%, transparent) 1px, transparent 1.5px);
+    background-size:
+      120px 120px,
+      210px 190px;
+    background-position:
+      0 0,
+      64px 88px;
+  }
+
+  /*
+    Desfoque de 64px em vez de 90px. Sao as maiores camadas da pagina (36rem);
+    o raio do blur multiplica a area que o navegador precisa rasterizar a cada
+    repintura — inclusive na captura da troca de tema. A diferenca visual nessa
+    opacidade e imperceptivel.
+  */
+  .glow {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(64px);
+    pointer-events: none;
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  }
+
+  .mask-fade-radial {
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 35%, #000 25%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 35%, #000 25%, transparent 100%);
+  }
+
+  .hairline-x {
+    background: linear-gradient(90deg, transparent, var(--color-line) 12%, var(--color-line) 88%, transparent);
+  }
+
+  /* ----------------------------------------------------------------- reveal */
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    transition:
+      opacity 0.75s var(--ease-soft),
+      transform 0.75s var(--ease-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal[data-visible='true'] {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* -------------------------------------------------------------- animacoes */
+  .anim-float {
+    animation: float 11s var(--ease-organic) infinite;
+  }
+
+  .anim-twinkle {
+    animation: twinkle 5.5s ease-in-out infinite;
+  }
+
+  .anim-sway {
+    animation: sway 9s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .anim-float,
+    .anim-twinkle,
+    .anim-sway {
+      animation: none;
+    }
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* Brilho lento das estrelas: a opacidade nunca chega a zero, para nao piscar. */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-1.5deg);
+  }
+  50% {
+    transform: rotate(1.5deg);
+  }
+}
+
+@keyframes cloud-drift {
+  0% {
+    transform: translate3d(-4%, 0, 0);
+  }
+  100% {
+    transform: translate3d(6%, 0, 0);
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(8%, -6%, 0) scale(1.12);
+  }
+}
+
+@keyframes blink-open {
+  0%,
+  91% {
+    opacity: 1;
+  }
+  92%,
+  96% {
+    opacity: 0;
+  }
+  97%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blink-closed {
+  0%,
+  91% {
+    opacity: 0;
+  }
+  92%,
+  96% {
+    opacity: 1;
+  }
+  97%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes wander {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  35% {
+    transform: translate3d(14px, -16px, 0);
+  }
+  70% {
+    transform: translate3d(-11px, -30px, 0);
+  }
+  100% {
+    transform: translate3d(9px, -44px, 0);
+  }
+}
+
+@keyframes rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.55);
+    opacity: 0;
+  }
+  14% {
+    opacity: 0.85;
+  }
+  72% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate3d(20px, -190px, 0) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slide-down-panel {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
