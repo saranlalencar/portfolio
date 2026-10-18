@@ -71,8 +71,7 @@ function commit(next: Theme) {
 /**
  * A troca de tema e cara: muda o valor de dezenas de tokens de cor, o que
  * obriga o navegador a repintar todos os gradientes, as camadas com
- * `filter: blur()` e as com `mix-blend-mode` — e ainda troca a personagem da
- * cena, montando e desmontando ~900 <rect>.
+ * `filter: blur()` e as com `mix-blend-mode`.
  *
  * Animar isso propriedade por propriedade (o que fazíamos antes, com
  * `transition` num seletor universal) fica pesado justamente porque cada
@@ -83,8 +82,12 @@ function commit(next: Theme) {
  * duas imagens, no compositor. O trabalho pesado acontece UMA vez, e a
  * transicao em si e so a fusao de dois bitmaps.
  *
- * Onde a API nao existe (Firefox, hoje), a troca acontece de uma vez — sem
- * transicao, mas tambem sem travada.
+ * Onde a API nao existe, usamos uma transicao de cor via CSS ligada so
+ * durante a troca (classe `theme-fading`).
+ *
+ * `prefers-reduced-motion` NAO cancela mais a transicao. O esmaecimento nao
+ * desloca nada na tela, que e o que a preferencia protege; o CSS so encurta a
+ * duracao nesse caso (ver `--theme-fade` em styles/index.css).
  */
 export function setTheme(next: Theme) {
   if (next === current) return
@@ -95,10 +98,19 @@ export function setTheme(next: Theme) {
     // Sem persistencia disponivel: o tema vale so para esta sessao.
   }
 
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-  if (reduced || typeof document.startViewTransition !== 'function') {
+  if (typeof document.startViewTransition !== 'function') {
+    // Sem View Transitions: anima so durante a troca (ver `theme-fading` no CSS).
+    const root = document.documentElement
+    root.classList.add('theme-fading')
+    /*
+      Ligar a classe e trocar as cores no mesmo quadro nao produz transicao
+      nenhuma: o navegador recalcula o estilo uma vez so e ve apenas o valor
+      final. Ler `offsetWidth` o obriga a aplicar a regra de transicao antes de
+      as cores mudarem.
+    */
+    void root.offsetWidth
     commit(next)
+    window.setTimeout(() => root.classList.remove('theme-fading'), 1000)
     return
   }
 

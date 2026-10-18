@@ -147,19 +147,80 @@
   navegador a repintar os gradientes, as camadas desfocadas e as com
   `mix-blend-mode`. O resultado era pesado.
 
-  Aqui so definimos a duracao: o cross-fade em si e feito entre dois retratos
-  da pagina, no compositor (ver src/lib/theme.ts).
+  O cross-fade em si e feito entre dois retratos da pagina, no compositor
+  (ver src/lib/theme.ts). Mas o cross-fade PADRAO do navegador nao serve aqui:
+  ele desvanece os dois retratos ao mesmo tempo e os combina com
+  `mix-blend-mode: plus-lighter`, que SOMA as cores. Entre um tema escuro e um
+  claro, essa soma produz, no meio do caminho, uma imagem mais clara que as
+  duas pontas — a "terceira tela" que aparecia piscando na troca.
+
+  Em vez disso: o retrato NOVO fica parado por baixo, ja opaco, e o ANTIGO
+  esmaece por cima dele. Como so uma camada se move e nada e somado, o que se
+  ve e o tema antigo dando lugar ao novo, sem passar por nenhum estado
+  intermediario estranho.
+
+  Sobre `prefers-reduced-motion`: antes a troca era instantanea quando a
+  preferencia estava ligada — e como o Windows mapeia "desativar animacoes"
+  para ela, muita gente so via o corte seco. A preferencia existe por causa de
+  MOVIMENTO (deslizes, parallax, zoom), que desencadeia enjoo vestibular; um
+  esmaecimento de opacidade nao move nada na tela. Entao mantemos o fade,
+  apenas mais curto. Quem desligou animacoes continua sem nada se deslocando.
 */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 260ms;
-  animation-timing-function: var(--ease-organic);
+:root {
+  --theme-fade: 800ms;
+  --theme-fade-ease: cubic-bezier(0.37, 0, 0.63, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
+  :root {
+    --theme-fade: 600ms;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: none;
+  opacity: 1;
+}
+
+::view-transition-old(root) {
+  animation: theme-crossfade-out var(--theme-fade) var(--theme-fade-ease) forwards;
+  /* Por cima do retrato novo, que fica parado por baixo. */
+  z-index: 1;
+}
+
+@keyframes theme-crossfade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/*
+  Fallback para navegadores sem View Transitions: `theme.ts` liga a classe
+  `theme-fading` so durante a troca e a remove logo depois, entao o custo da
+  transicao em todos os elementos nao existe no resto do tempo.
+
+  Mora dentro de @layer base de proposito: a regra global de
+  `prefers-reduced-motion` (mais abaixo, mesma camada) zera `transition-duration`
+  com `!important` em `*`. Declaracoes `!important` dentro de uma camada vencem
+  as de fora dela, entao uma regra solta aqui perderia. Na mesma camada, ganha
+  a de maior especificidade — e `html.theme-fading *` supera `*`.
+*/
+@layer base {
+  html.theme-fading,
+  html.theme-fading *,
+  html.theme-fading *::before,
+  html.theme-fading *::after {
+    transition:
+      background-color var(--theme-fade) var(--theme-fade-ease),
+      border-color var(--theme-fade) var(--theme-fade-ease),
+      color var(--theme-fade) var(--theme-fade-ease),
+      fill var(--theme-fade) var(--theme-fade-ease),
+      stroke var(--theme-fade) var(--theme-fade-ease) !important;
   }
 }
 
