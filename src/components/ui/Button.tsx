@@ -8,12 +8,21 @@ const BASE =
   'group/btn relative inline-flex select-none items-center justify-center gap-2 rounded-full font-medium transition-all duration-400 ease-[cubic-bezier(0.22,0.61,0.36,1)] motion-safe:hover:-translate-y-0.5'
 
 const VARIANTS: Record<ButtonVariant, string> = {
-  // Verde principal sobre texto noturno: 5,9:1 de contraste.
+  // Roxo do acento sobre texto noturno. O brilho do hover e do MESMO roxo —
+  // o verde da paleta anterior (Jardim Noturno) nao existe mais aqui.
   primary:
-    'bg-accent text-night font-semibold hover:bg-accent-strong hover:shadow-[0_14px_44px_-16px_rgba(143,196,106,0.7)]',
+    'bg-accent text-night font-semibold hover:bg-accent-strong hover:shadow-[0_14px_44px_-16px_rgba(168,85,247,0.65)]',
   secondary:
     'border border-line-strong bg-surface/60 text-fg hover:border-accent/60 hover:bg-surface-2/70 hover:text-accent-strong',
-  ghost: 'text-muted hover:text-accent-strong',
+  /*
+    Terciario — mas ainda um BOTAO. Antes era so `text-muted`, sem borda nem
+    fundo: no hero ele ficava lado a lado com duas pilulas e lia como texto
+    solto, sem nenhum sinal de que era clicavel. A borda fraca devolve a
+    mesma geometria das outras acoes; o contraste mais baixo (borda `line`
+    contra a `line-strong` da secundaria, sem fundo proprio) e o que mantem a
+    hierarquia.
+  */
+  ghost: 'border border-line text-muted hover:border-accent/60 hover:bg-surface/50 hover:text-accent-strong',
 }
 
 const SIZES: Record<ButtonSize, string> = {

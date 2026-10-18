@@ -4,7 +4,6 @@ import { Reveal } from '@/components/ui/Reveal'
 import { Section, SectionHeading } from '@/components/ui/Section'
 import { BrandMark } from '@/components/ui/Brand'
 import { Pending } from '@/components/ui/Pending'
-import { PixelSprite } from '@/components/decor/PixelSprite'
 import { SectionAura } from '@/components/decor/Ornament'
 
 /** Fatos objetivos — todos verificaveis, nenhum inferido. */
@@ -17,14 +16,11 @@ const FACTS: Array<{ label: string; value: string }> = [
 export function About() {
   return (
     <Section id="sobre" tone="night-2" labelledBy="sobre-titulo">
-      <SectionAura tone="sage" constellation />
+      <SectionAura />
 
       <SectionHeading
-        index="01"
-        label="Sobre"
         title="Sobre mim"
         titleId="sobre-titulo"
-        sprite="folha"
         description="Quem está por trás dos projetos e o que orienta as escolhas técnicas de cada um deles."
       />
 
@@ -46,10 +42,6 @@ export function About() {
 
         <Reveal delay={120}>
           <div className="surface relative overflow-hidden p-6">
-            <span aria-hidden="true" className="absolute right-5 top-5">
-              <PixelSprite name="folha" size={18} opacity={0.5} />
-            </span>
-
             <div className="relative flex items-center gap-4">
               {profile.photoUrl ? (
                 <img
@@ -95,7 +87,6 @@ export function About() {
       <Reveal delay={80} className="mt-8 lg:mt-10">
         <div className="surface p-6 sm:p-8">
           <div className="flex items-center gap-3">
-            <PixelSprite name="broto" size={16} />
             <h3 className="text-lg text-fg">Atualmente estou explorando</h3>
           </div>
 

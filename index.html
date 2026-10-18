@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" content="#16261F" />
+    <meta name="theme-color" content="#0F0B1A" />
 
     <!--
       SEO estatico (fallback). O titulo e a descricao sao atualizados em tempo de
@@ -49,7 +49,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -57,21 +57,17 @@
       Tema antes da primeira pintura.
       Precisa ser um script inline e sincrono: se esperasse o bundle React, a
       pagina piscaria no tema errado por um instante para quem escolheu o modo
-      diurno. Escolha salva > preferencia do sistema > noturno.
+      diurno. Escolha salva > noturno (nao seguimos mais a preferencia de
+      sistema — ver src/lib/theme.ts).
     -->
     <script>
       (function () {
         try {
           var saved = localStorage.getItem('portfolio-tema')
-          var theme =
-            saved === 'dark' || saved === 'light'
-              ? saved
-              : window.matchMedia('(prefers-color-scheme: light)').matches
-                ? 'light'
-                : 'dark'
+          var theme = saved === 'dark' || saved === 'light' ? saved : 'dark'
           document.documentElement.dataset.theme = theme
           var meta = document.querySelector('meta[name="theme-color"]')
-          if (meta) meta.setAttribute('content', theme === 'light' ? '#F1F0E2' : '#16261F')
+          if (meta) meta.setAttribute('content', theme === 'light' ? '#F1F0E2' : '#0F0B1A')
         } catch (e) {
           document.documentElement.dataset.theme = 'dark'
         }

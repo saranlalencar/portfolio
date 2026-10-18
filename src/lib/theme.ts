@@ -22,7 +22,7 @@ export const THEME_STORAGE_KEY = 'portfolio-tema'
 
 /** Cor da barra do navegador em cada tema (espelha --color-night). */
 const THEME_COLOR: Record<Theme, string> = {
-  dark: '#16261F',
+  dark: '#0F0B1A',
   light: '#F1F0E2',
 }
 
@@ -36,17 +36,20 @@ function readStored(): Theme | null {
   }
 }
 
-function systemPreference(): Theme {
-  if (typeof window === 'undefined') return 'dark'
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
-}
-
-/** Tema inicial: escolha salva > preferencia do sistema > noturno. */
+/**
+ * Tema inicial: escolha salva > noturno.
+ *
+ * Nao seguimos mais `prefers-color-scheme` do sistema: a identidade "Nebula
+ * Noturno" (o campo de estrelas, o degrade roxo->periwinkle) so faz sentido
+ * no escuro, e o tema claro ainda carrega paleta antiga ("Jardim Noturno")
+ * nao migrada. Ate o claro ser redesenhado de verdade, todo mundo abre no
+ * escuro por padrao — quem preferir claro troca manualmente pelo interruptor.
+ */
 function initialTheme(): Theme {
   if (typeof document === 'undefined') return 'dark'
   const attribute = document.documentElement.dataset.theme
   if (attribute === 'dark' || attribute === 'light') return attribute
-  return readStored() ?? systemPreference()
+  return readStored() ?? 'dark'
 }
 
 let current: Theme = initialTheme()

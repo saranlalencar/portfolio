@@ -135,8 +135,6 @@ export interface Project {
   /** Rotulo editorial exibido no cartao ("Sistema de Gestao"). */
   categoryLabel: Editable
   status: ProjectStatus
-  /** Um unico projeto deve ser o destaque da secao. */
-  featured?: boolean
   period: Editable
   /** Resumo curto do cartao. */
   summary: Editable

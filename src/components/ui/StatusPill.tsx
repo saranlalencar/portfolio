@@ -14,8 +14,8 @@ const STYLES: Record<ProjectStatus, { wrapper: string; dot: string; solid: boole
     solid: false,
   },
   concluido: {
-    wrapper: 'border-accent/35 bg-accent/12 text-accent-strong',
-    dot: 'bg-accent border-accent',
+    wrapper: 'border-leaf/35 bg-leaf/12 text-leaf',
+    dot: 'bg-leaf border-leaf',
     solid: true,
   },
   planejado: {

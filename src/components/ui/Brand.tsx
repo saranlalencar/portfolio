@@ -2,19 +2,20 @@ import { useId } from 'react'
 import { cn } from '@/lib/cn'
 import { profile } from '@/data'
 import { isFilled } from '@/lib/placeholder'
-import { useTheme } from '@/lib/theme'
 
 /**
- * Simbolo do portfolio: um corpo celeste com uma pequena estrela, dentro de uma
- * moldura arredondada. Composicao original — nao deriva de nenhuma marca
- * existente.
+ * Simbolo do portfolio: o cinturao de Orion — tres estrelas alinhadas, ligadas
+ * por uma linha fina — dentro de uma moldura arredondada.
  *
- * O corpo celeste acompanha o tema — lua a noite, sol de dia — porque a marca
- * TAMBEM e o interruptor de tema (ver `Navbar`). Assim ela indica o estado
- * atual alem de oferecer a acao.
+ * E o mesmo motivo que aparece ao lado do nome, no hero e no rodape: a marca
+ * fecha o sistema em vez de introduzir um desenho novo. Nao ha lua nem sol
+ * aqui: a marca deixou de ser o interruptor de tema (isso agora e uma opcao
+ * com nome, no menu), entao ela nao precisa mais indicar estado — precisa
+ * apenas identificar.
+ *
+ * Composicao original, sem relacao com nenhuma marca existente.
  */
 export function BrandMark({ className }: { className?: string }) {
-  const { isDark } = useTheme()
   // O gradiente precisa de um id unico: a marca aparece mais de uma vez na pagina.
   const gradientId = useId()
 
@@ -40,35 +41,23 @@ export function BrandMark({ className }: { className?: string }) {
         strokeWidth="2.5"
       />
 
-      {isDark ? (
-        /* lua crescente */
-        <path d="M39 17a17 17 0 1 0 0 30 14 14 0 1 1 0-30Z" fill={`url(#${gradientId})`} fillOpacity="0.92" />
-      ) : (
-        /* sol: mesmo peso visual da lua, com raios curtos */
-        <g fill={`url(#${gradientId})`} fillOpacity="0.92">
-          <circle cx="35" cy="32" r="10" />
-          {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
-            <rect
-              key={angle}
-              x="34"
-              y="15.5"
-              width="2"
-              height="5"
-              rx="1"
-              transform={`rotate(${angle} 35 32)`}
-            />
-          ))}
-        </g>
-      )}
-
-      {/* estrela de quatro pontas */}
+      {/* a linha que liga as tres estrelas — na diagonal do cinturao */}
       <path
-        d="M21.5 15c.7 4.6 1.2 5.1 5.8 5.8-4.6.7-5.1 1.2-5.8 5.8-.7-4.6-1.2-5.1-5.8-5.8 4.6-.7 5.1-1.2 5.8-5.8Z"
-        fill="var(--color-gold)"
+        d="M20 43 44 21"
+        stroke={`url(#${gradientId})`}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeOpacity="0.55"
+        fill="none"
       />
 
-      {/* semente luminosa */}
-      <circle cx="20" cy="45" r="2" fill="var(--color-accent-strong)" fillOpacity="0.75" />
+      {/* as tres estrelas: a do meio maior, como no ceu */}
+      <circle cx="20" cy="43" r="3.4" fill={`url(#${gradientId})`} />
+      <circle cx="32" cy="32" r="4.6" fill={`url(#${gradientId})`} />
+      <circle cx="44" cy="21" r="3.4" fill={`url(#${gradientId})`} />
+
+      {/* brilho ambar da estrela central, o unico ponto quente da marca */}
+      <circle cx="32" cy="32" r="1.7" fill="var(--color-gold)" />
     </svg>
   )
 }

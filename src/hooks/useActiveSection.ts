@@ -20,8 +20,19 @@ export function useActiveSection(ids: string[], enabled = true): string {
           if (entry.isIntersecting) visible.add(id)
           else visible.delete(id)
         }
-        // Em caso de empate, vence a secao que vem antes na ordem da pagina.
-        const next = ids.find((id) => visible.has(id))
+        /*
+          Em caso de empate, vence a ULTIMA na ordem da pagina.
+
+          Importa porque nem toda ancora e uma secao irma das outras:
+          `#tecnologias` fica DENTRO de `#projetos` (ela marca o trecho da
+          rolagem em que a transicao ja virou cartoes de tecnologia). As duas
+          cruzam a faixa central ao mesmo tempo, e a de dentro — a mais
+          especifica, que vem depois na pagina — e a resposta certa. Entre
+          secoes irmas o empate so acontece na fronteira, e ali preferir a
+          seguinte e justamente o que se espera ao descer a pagina.
+        */
+        let next = ''
+        for (const id of ids) if (visible.has(id)) next = id
         if (next) setActiveId(next)
       },
       { rootMargin: '-45% 0px -45% 0px', threshold: 0 },

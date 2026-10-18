@@ -47,11 +47,22 @@ export function MoonIcon(props: IconProps) {
 }
 
 /** Sol — indica que o tema diurno esta ativo. */
+/**
+ * Sol — o que diferencia um sol de uma ENGRENAGEM e a folga entre o miolo e
+ * os raios: dente de engrenagem nasce colado no corpo, raio de sol e
+ * destacado. A versao anterior tinha miolo grande (r=4,2) com oito tracos
+ * curtos (1,6px) quase encostados nele; em 18px isso lia como "configuracoes".
+ *
+ * Aqui o miolo e menor (r=3,4), a folga e maior que o proprio traco (2,9px de
+ * vao) e os raios sao mais longos que a folga (3px) — a leitura passa a ser
+ * de algo que EMITE, nao de algo que engrena.
+ */
 export function SunIcon(props: IconProps) {
   return (
     <Stroke {...props}>
-      <circle cx="12" cy="12" r="4.2" />
-      <path d="M12 2.6v2.2M12 19.2v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.6 12h2.2M19.2 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6" />
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2.2v3.2M12 18.6v3.2M2.2 12h3.2M18.6 12h3.2" />
+      <path d="M5.07 5.07 7.33 7.33M16.67 16.67l2.26 2.26M5.07 18.93 7.33 16.67M16.67 7.33l2.26-2.26" />
     </Stroke>
   )
 }

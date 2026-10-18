@@ -1,83 +1,50 @@
 @import 'tailwindcss';
 
 /* ==========================================================================
-   SISTEMA VISUAL — "Jardim Noturno"
+   SISTEMA VISUAL — "Nebula Noturno"
    --------------------------------------------------------------------------
-   Paleta derivada de duas referencias em /fotos:
+   Paleta escura: roxo (acento principal) esfriando num degrade ate o
+   periwinkle (o ceu que ja existia na referencia do lago) — nunca magenta.
+   O texto continua creme, nao branco frio, para manter o calor da versao
+   anterior. O ambar (luz da lua) sobrevive nos filetes e detalhes; o verde
+   agora e reservado so para o status "concluido" (--color-leaf), nao mais o
+   acento principal.
 
-     · o lago noturno  -> ceu periwinkle carregado de nuvens, luz de lua ambar,
-                          colinas indigo e pinheiros quase pretos;
-     · a mesa na mata  -> folhagem verde-teal escura, madeira quente, creme do
-                          notebook e um azul de tela como acento frio.
-
-   Dai vem a divisao do tema noturno: o CEU e periwinkle e a LUZ e ambar; o
-   CHAO e verde-teal profundo. Nada de cinza neutro nem de oliva apagado.
-
-   Contraste verificado sobre o fundo base (#101F1A):
-     creme  #EFE9D8 -> 13,6:1   |  verde claro #B5CDB5 -> 10,0:1
-     verde  #58B87A ->  7,0:1   |  ambar       #EFCE8C -> 11,4:1
-     verde medio #8CAF93 -> 7,1:1  |  periwinkle #8E96D6 -> 5,6:1
-   Todos os pares usados em texto superam 4,5:1 (AA) — a maioria passa de 7:1.
+   Contraste verificado sobre o fundo base (#0F0B1A):
+     creme  #EFE9D8 -> 14,0:1  |  periwinkle #8E96D6 -> 6,7:1
+     roxo-claro #C4A2FF -> 8,9:1  |  ambar #EFCE8C -> ~12:1
+     roxo (acento) #A855F7 -> ~4,8:1 (ok para texto grande/UI, nao para corpo pequeno)
    ========================================================================== */
 
 @theme {
   /* --------------------------------------------------------- superficies */
-  --color-night: #101f1a; /* fundo principal — folhagem escura    */
-  --color-night-2: #172c26; /* fundo alternado entre secoes         */
-  --color-surface: #1e3a31; /* cards, paineis, menus                */
-  --color-surface-2: #274a3e; /* estado elevado / hover               */
+  --color-night: #0f0b1a; /* fundo principal — ameixa-indigo      */
+  --color-night-2: #150f26; /* fundo alternado entre secoes         */
+  --color-surface: #1b1533; /* cards, paineis, menus                */
+  --color-surface-2: #241c40; /* estado elevado / hover               */
 
-  /* Linhas: sempre uma mistura do fundo com o verde, nunca cinza neutro. */
-  --color-line: #2b4e42;
-  --color-line-strong: #3d6455;
+  /* Linhas: sempre uma mistura do fundo com o roxo, nunca cinza neutro. */
+  --color-line: #322a4e;
+  --color-line-strong: #4a3f70;
 
   /* -------------------------------------------------------------- texto */
   --color-fg: #efe9d8; /* creme — titulos e texto principal      */
   --color-sand: #f0dcae; /* creme quente da luz da lua            */
-  --color-muted: #b5cdb5; /* verde claro — texto secundario        */
-  --color-subtle: #8caf93; /* verde medio — rotulos e meta          */
+  --color-muted: #bcb4d0; /* lavanda clara — texto secundario      */
+  --color-subtle: #8e86a8; /* lavanda media — rotulos e meta        */
 
   /* ------------------------------------------------------------ acentos */
-  --color-accent: #58b87a; /* verde folha — CTAs, links, ativos    */
-  --color-accent-strong: #8ad79c; /* verde claro — hover e destaques      */
-  --color-moss: #2f6b45; /* verde de mata — vegetacao            */
-  --color-iris: #8e96d6; /* periwinkle — o ceu da referencia     */
-  --color-indigo: #3d4a80; /* indigo — colinas distantes           */
-  --color-gold: #efce8c; /* ambar — a luz da lua                 */
-  --color-wood: #a0703f; /* madeira quente — poleiro e detalhes  */
-  --color-berry: #c0392b; /* vermelho de cogumelo — SO decorativo, nunca em UI */
+  --color-accent: #a855f7; /* roxo — CTAs, links, ativos             */
+  --color-accent-strong: #c4a2ff; /* roxo claro — hover e destaques  */
+  --color-iris: #8e96d6; /* periwinkle — fecha o degrade do acento   */
+  --color-gold: #efce8c; /* ambar — filetes e o cinturao de Orion    */
+  --color-leaf: #58b87a; /* verde-folha — SO o status "concluido"    */
 
-  /* -------------------------------------------------------- ilustracao */
-  /*
-    Creme fixo: NAO muda entre os temas. E o branco das ilustracoes (disco
-    facial da coruja, petalas, lua, talo do cogumelo) — se ele acompanhasse o
-    tema, a coruja ficaria de rosto marrom no modo diurno.
-  */
-  --color-cream: #efe9d8;
-
-  /*
-    Atmosfera: brilhos difusos e o campo de cor da cena do hero. Sao os unicos
-    tokens cujo PAPEL muda entre os temas — de luz noturna para luz do dia.
-
-    A noite segue a composicao da referencia do lago: ceu periwinkle em cima,
-    luz ambar da lua no meio, mata verde-escura embaixo.
-  */
-  --color-aura-warm: #efce8c; /* luz da lua      */
-  --color-aura-cool: #8e96d6; /* ceu periwinkle  */
-  --color-wash-1: #8e96d6; /* ceu alto da cena       */
-  --color-wash-2: #c3c8ea; /* nuvem iluminada        */
-  --color-wash-3: #3d4a80; /* indigo das colinas     */
-  --color-wash-4: #12241d; /* mata escura, embaixo   */
-
-  /*
-    Colinas da paisagem do rodape. A noite sao as montanhas azuis da referencia
-    do lago; de dia precisam ser VERDES — indigo sobre fundo claro vira cinza.
-  */
-  --color-hill-far: #3d4a80;
-  --color-hill-near: #233145;
+  /* Halo difuso das secoes (ver `.glow`). Muda de papel entre os temas. */
+  --color-aura-cool: #8e96d6;
 
   /* --------------------------------------------------------- tipografia */
-  --font-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* ---------------------------------------------------------- movimento */
@@ -86,69 +53,61 @@
 }
 
 /* ==========================================================================
-   TEMA DIURNO
+   TEMA DIURNO — "Nebula Diurno"
    --------------------------------------------------------------------------
-   O mesmo jardim, ao sol. Nenhum componente muda: apenas os valores dos
-   tokens sao substituidos aqui.
+   A mesma nebulosa, ao meio-dia. Nenhum componente muda: apenas os valores
+   dos tokens sao substituidos aqui.
 
    Os nomes dos tokens sao SLOTS, nao cores literais:
-     --color-night    = fundo da pagina        (verde escuro | creme)
+     --color-night    = fundo da pagina        (indigo escuro | lavanda clara)
      --color-night-2  = fundo alternado
      --color-surface  = cartoes e paineis
      --color-fg       = texto principal
    Ler "night" como "fundo base" evita confusao ao editar o tema claro.
 
-   A referencia diurna e a do gato ao sol: parede turquesa, capim
-   verde-amarelado atravessado de luz, pedra clara e o animal escuro em
-   contraste. O texto principal usa exatamente o azul-violeta do gato.
+   O fundo tem um vies lavanda quase imperceptivel — nunca branco puro, para
+   o roxo do acento nascer do fundo em vez de parecer colado por cima. O
+   texto principal e uma ameixa profunda, nunca preto: o mesmo espelho que o
+   tema escuro faz ao usar creme em vez de branco frio.
 
-   Contraste verificado sobre o fundo diurno (#EDF2E6):
-     texto  #2C2C42 -> 11,9:1   |  secundario #3E5A4C -> 6,5:1
-     verde  #3E6B24 ->  5,5:1   |  rotulos    #456B51 -> 5,3:1
-     bege   #7A5C3A ->  5,3:1   |  ambar      #8A5F12 -> 4,9:1
+   Contraste verificado sobre o fundo diurno (#F6F4FB):
+     texto  #241B38 -> 14,9:1  |  secundario #4A3D63 -> 9,0:1
+     rotulos #6B5F8C -> 5,3:1  |  roxo (acento) #6D28D9 -> 6,5:1
+     roxo forte #4C1D95 -> 10,0:1  |  periwinkle #4F5AA8 -> 5,7:1
+     ambar #8A5A0B -> 5,4:1    |  verde #1F7A48 -> 4,9:1
    ========================================================================== */
 :root[data-theme='light'] {
-  /* superficies — a luz alta e a pedra clara da referencia */
-  --color-night: #edf2e6;
-  --color-night-2: #dee9d3;
-  --color-surface: #f6faf5;
-  --color-surface-2: #e6f0e8;
-  --color-line: #c3d8cb;
-  --color-line-strong: #9fbfaa;
+  /* superficies — branco com vies lavanda, nao branco puro */
+  --color-night: #f6f4fb;
+  --color-night-2: #ede9f7;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3effc;
+  --color-line: #dcd4ee;
+  --color-line-strong: #beb2dc;
 
-  /* texto: o azul-violeta do gato, nunca preto */
-  --color-fg: #2c2c42;
-  --color-sand: #7a5c3a;
-  --color-muted: #3e5a4c;
-  --color-subtle: #456b51;
+  /* texto: ameixa profunda, nunca preto */
+  --color-fg: #241b38;
+  --color-sand: #8a5a0b;
+  --color-muted: #4a3d63;
+  --color-subtle: #6b5f8c;
 
-  /* acentos: o verde do capim, escurecido para o fundo claro */
-  --color-accent: #3e6b24;
-  --color-accent-strong: #2c4f19;
-  --color-moss: #5c8a3a;
-  --color-iris: #2f8fa3; /* turquesa da parede */
-  --color-indigo: #2c3a52;
-  --color-gold: #8a5f12;
-  --color-wood: #6b4a2e;
-  --color-berry: #a93b2b;
+  /* acentos: o mesmo roxo, escurecido para segurar contraste sobre claro.
+     Ficam ESCUROS de proposito — sao usados como texto pequeno (botoes,
+     rotulos, links), que exige 4,5:1. O degrade do nome, que exige so 3:1
+     (texto grande), tem arco proprio mais abaixo — nao reusa estes tokens. */
+  --color-accent: #6d28d9;
+  --color-accent-strong: #4c1d95;
+  --color-iris: #4f5aa8;
+  --color-gold: #8a5a0b;
+  --color-leaf: #1f7a48;
 
-  /*
-    Atmosfera: a luz deixa de ser da lua e passa a ser do sol.
-
-    A cena tambem se inverte. A noite, o alto e ceu periwinkle e o fundo
-    profundo e a mata; de dia, o alto e a parede turquesa e o profundo vira
-    verde de sombra — mantendo a direcao da luz (claro em cima, denso embaixo).
-  */
-  --color-aura-warm: #f2d98a;
-  --color-aura-cool: #79ceda;
-  --color-wash-1: #8fd8e2; /* turquesa ao sol      */
-  --color-wash-2: #eaf7f2; /* luz alta             */
-  --color-wash-3: #8fb85a; /* capim iluminado      */
-  --color-wash-4: #3e6b4a; /* verde de sombra      */
-
-  /* colinas verdes, com a mais distante esmaecida pela luz */
-  --color-hill-far: #a9c596;
-  --color-hill-near: #8fb570;
+  /* O halo das secoes ganha duas fontes de luz, nao uma: sol em cima, sombra
+     fria de periwinkle embaixo — a mesma direcao de luz do tema escuro (ceu
+     claro em cima, denso embaixo), so que ao contrario. So opacidade nao
+     chegava perto de visivel contra um fundo ja quase branco; e a MISTURA de
+     cor (ver `.glow` mais abaixo) que da o halo, nao a transparencia. */
+  --color-aura-warm: #f2c879;
+  --color-aura-cool: #4f5aa8;
 }
 
 /*
@@ -165,6 +124,18 @@
 :root[data-theme='light'] body::after {
   mix-blend-mode: multiply;
   opacity: 0.035;
+}
+
+/*
+  O halo das secoes (`.glow`, ver `@layer components`) precisa de bem mais
+  forca de mistura de dia: a mesma opacidade que funciona contra o fundo
+  escuro se perde contra um fundo ja quase branco.
+*/
+:root[data-theme='light'] .glow {
+  --glow-mix: 30%;
+}
+:root[data-theme='light'] .glow--secondary {
+  --glow-mix: 18%;
 }
 
 /*
@@ -303,6 +274,49 @@
 }
 
 @layer components {
+  /* ---------------------------------------------------------------- fundo */
+  /*
+    Fundo continuo entre telas.
+
+    Antes cada secao era um bloco chapado (`bg-night` ou `bg-night-2`), entao a
+    fronteira entre duas secoes de tons diferentes — hero -> Sobre, Contato ->
+    rodape — virava uma linha horizontal visivel: o "furo de cor". Aqui a
+    variacao de tom acontece SEMPRE no meio da secao e volta ao tom base nas
+    duas pontas. Como toda secao comeca e termina em `--color-night`, nenhuma
+    emenda pode aparecer: o site le como uma peca so, nao como paginas
+    empilhadas.
+  */
+  /*
+    Fundo de secao — TRANSPARENTE nas bordas, sempre.
+
+    A cor base quem da e o `body`. As secoes so acrescentam um realce no
+    MEIO delas, e chegam nas duas pontas em transparencia total.
+
+    Antes cada secao pintava uma caixa OPACA (`night` cheia, ou o degrade
+    entre cores opacas). Isso quebrava a pagina: o halo de uma secao
+    transborda de proposito para dentro da seguinte (e o que costura uma
+    tela na outra), mas a seguinte vem depois no documento e pintava por
+    cima desse transbordo — deixando um corte reto exatamente na emenda.
+    Medido na borda direita da fronteira Sobre/Projetos: salto de 26 (de
+    255) em UM pixel, no modo claro.
+
+    Com as pontas transparentes nao ha mais nada para cortar o transbordo,
+    e a emenda deixa de existir em vez de ser disfarcada.
+  */
+  .section-ground {
+    background-color: transparent;
+  }
+
+  .section-ground-swell {
+    background-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--color-night-2) 72%, transparent) 32%,
+      color-mix(in srgb, var(--color-night-2) 72%, transparent) 68%,
+      transparent 100%
+    );
+  }
+
   /* ---------------------------------------------------------------- layout */
   .container-page {
     width: 100%;
@@ -345,7 +359,7 @@
     font-size: clamp(1.375rem, 1.05rem + 1.4vw, 1.875rem);
     line-height: 1.4;
     font-weight: 500;
-    font-style: italic;
+    letter-spacing: -0.01em;
   }
 
   /*
@@ -361,31 +375,11 @@
   }
 
   /*
-    Cormorant Garamond usa algarismos old-style por padrao: "01" sai parecido
-    com "OI". Onde um numeral serifado precisa ser lido como numero, forcamos
-    os algarismos altos.
+    Gradiente-assinatura: violeta -> roxo -> periwinkle. Esfria em vez de
+    esquentar para o magenta — o periwinkle ja e o ceu do resto do site.
   */
-  .numeral {
-    font-variant-numeric: lining-nums tabular-nums;
-    font-feature-settings: 'lnum' 1, 'tnum' 1;
-  }
-
-  .eyebrow {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
   .text-gradient {
-    background-image: linear-gradient(
-      104deg,
-      var(--color-fg) 0%,
-      var(--color-fg) 42%,
-      var(--color-sand) 68%,
-      var(--color-gold) 100%
-    );
+    background-image: linear-gradient(120deg, #6d28d9 0%, var(--color-accent) 55%, var(--color-iris) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -439,111 +433,6 @@
     opacity: 1;
   }
 
-  /* ------------------------------------------------- midia do hero (foto) */
-  /*
-    Campo de cor da cena do hero, montado sobre os tokens --wash-*: a noite usa
-    verdes sobre indigo; o dia troca por relva ao sol sobre ceu azul. A
-    composicao das camadas (claro em cima, profundo embaixo) e a mesma.
-  */
-  .media-wash {
-    background-color: var(--color-wash-3);
-    background-image:
-      /* ponto mais alto da cena */
-      radial-gradient(72% 50% at 26% 12%, color-mix(in srgb, var(--color-wash-2) 62%, transparent) 0%, transparent 56%),
-      /* campo principal */
-      radial-gradient(96% 68% at 30% 24%, color-mix(in srgb, var(--color-wash-1) 72%, transparent) 0%, transparent 62%),
-      /* meio-tom */
-      radial-gradient(74% 56% at 74% 34%, color-mix(in srgb, var(--color-wash-3) 70%, transparent) 0%, transparent 60%),
-      radial-gradient(52% 38% at 60% 6%, color-mix(in srgb, var(--color-cream) 18%, transparent) 0%, transparent 58%),
-      /* fundo profundo, fechando a transicao */
-      radial-gradient(100% 82% at 84% 92%, color-mix(in srgb, var(--color-wash-4) 88%, transparent) 0%, transparent 66%),
-      radial-gradient(80% 60% at 16% 76%, color-mix(in srgb, var(--color-wash-3) 55%, transparent) 0%, transparent 64%),
-      linear-gradient(158deg, var(--color-wash-1) 0%, var(--color-wash-3) 52%, var(--color-wash-4) 100%);
-  }
-
-  /*
-    Nuvens. A referencia do lago e quase toda nuvem: faixas alongadas e macias
-    atravessando o ceu. Aqui elas sao elipses borradas que derivam devagar
-    demais para chamar atencao — atmosfera, nao animacao.
-  */
-  .cloud {
-    position: absolute;
-    border-radius: 9999px;
-    filter: blur(26px);
-    animation: cloud-drift 90s linear infinite alternate;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .cloud {
-      animation: none;
-    }
-  }
-
-  /* Manchas de luz que se deslocam devagar dentro da moldura. */
-  .aurora {
-    position: absolute;
-    border-radius: 9999px;
-    filter: blur(28px);
-    animation: drift 26s var(--ease-organic) infinite alternate;
-  }
-
-  .anim-orbit {
-    animation: orbit 72s linear infinite;
-    transform-origin: center;
-  }
-
-  /* Segundo anel, mais lento e em sentido contrario: cria profundidade. */
-  .anim-orbit-reverse {
-    animation: orbit 104s linear infinite reverse;
-    transform-origin: center;
-  }
-
-  .anim-breathe {
-    animation: breathe 9s ease-in-out infinite;
-  }
-
-  /* Vaga-lume: percurso errante nos dois eixos, e nao so vertical. */
-  .anim-wander {
-    animation: wander 18s ease-in-out infinite alternate;
-  }
-
-  /* Esporos subindo da vegetacao — aparecem e somem, nunca piscam. */
-  .anim-rise {
-    animation: rise 15s linear infinite;
-  }
-
-  /*
-    Piscar da coruja: dois quadros de pixel art empilhados, trocados com
-    steps(1) — o corte seco e proprio da animacao quadro a quadro. O olho
-    fechado dura ~0,3s a cada 7s, entao e um gesto, nao um pisca-pisca.
-  */
-  .anim-blink-open {
-    animation: blink-open 7s steps(1, end) infinite;
-  }
-
-  .anim-blink-closed {
-    opacity: 0;
-    animation: blink-closed 7s steps(1, end) infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .aurora,
-    .anim-orbit,
-    .anim-orbit-reverse,
-    .anim-breathe,
-    .anim-wander,
-    .anim-rise,
-    .anim-blink-open,
-    .anim-blink-closed {
-      animation: none;
-    }
-
-    /* Sem movimento, os esporos ficariam invisiveis (opacidade inicial 0). */
-    .anim-rise {
-      opacity: 0.5;
-    }
-  }
-
   /* -------------------------------------------------------------- atmosfera */
   /* Ceu estrelado discreto: dois campos de pontos em escalas diferentes. */
   .starmap {
@@ -563,26 +452,47 @@
     o raio do blur multiplica a area que o navegador precisa rasterizar a cada
     repintura — inclusive na captura da troca de tema. A diferenca visual nessa
     opacidade e imperceptivel.
+
+    A cor vem de `--glow-color` (o componente define via `style` inline —
+    ver `SectionAura`/`Contact`) e a forca de `--glow-mix`. Nao usamos um
+    utilitario de cor com opacidade do Tailwind (`bg-cor/opacidade`) aqui de
+    proposito: o tema claro
+    precisa de uma mistura bem mais forte que o escuro para o halo continuar
+    visivel contra um fundo quase branco (so opacidade nunca chegava la), e
+    isso exige um SEGUNDO valor por tema — o que uma classe utilitaria fixa
+    no componente nao da pra expressar.
   */
   .glow {
     position: absolute;
     border-radius: 9999px;
     filter: blur(64px);
     pointer-events: none;
+    /*
+      Gradiente radial, nao cor solida: a cor some sozinha a 68% do raio,
+      BEM antes da borda da forma. Antes disso era uma cor UNIFORME borrada
+      — o desfoque so suaviza a QUINA de um disco cheio, e em qualquer
+      mistura forte o suficiente pra aparecer (o caso do tema claro, 30%)
+      isso lia como uma "bola" colorida solta no meio da secao, nao como
+      luz ambiente. Com o proprio gradiente ja desvanecendo, o blur so
+      arredonda uma transicao que ja e suave.
+    */
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--glow-color, var(--color-accent)) var(--glow-mix, 10%), transparent) 0%,
+      transparent 68%
+    );
   }
 
-  .mask-fade-b {
-    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  /* Segunda fonte de luz de uma secao (ver `SectionAura`): mais discreta que
+     a principal em qualquer tema — de noite quase nao muda a composicao
+     atual; de dia e ela que da profundidade ao halo. */
+  .glow--secondary {
+    --glow-mix: 6%;
   }
 
   .mask-fade-radial {
     -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 35%, #000 25%, transparent 100%);
     mask-image: radial-gradient(ellipse 70% 60% at 50% 35%, #000 25%, transparent 100%);
-  }
-
-  .hairline-x {
-    background: linear-gradient(90deg, transparent, var(--color-line) 12%, var(--color-line) 88%, transparent);
   }
 
   /* ----------------------------------------------------------------- reveal */
@@ -609,35 +519,15 @@
   }
 
   /* -------------------------------------------------------------- animacoes */
-  .anim-float {
-    animation: float 11s var(--ease-organic) infinite;
-  }
-
+  /* Brilho das estrelas (ver NightSky): nunca zera a opacidade, nada pisca. */
   .anim-twinkle {
     animation: twinkle 5.5s ease-in-out infinite;
   }
 
-  .anim-sway {
-    animation: sway 9s ease-in-out infinite;
-    transform-origin: bottom center;
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .anim-float,
-    .anim-twinkle,
-    .anim-sway {
+    .anim-twinkle {
       animation: none;
     }
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-9px);
   }
 }
 
@@ -649,114 +539,6 @@
   }
   50% {
     opacity: 1;
-  }
-}
-
-@keyframes sway {
-  0%,
-  100% {
-    transform: rotate(-1.5deg);
-  }
-  50% {
-    transform: rotate(1.5deg);
-  }
-}
-
-@keyframes cloud-drift {
-  0% {
-    transform: translate3d(-4%, 0, 0);
-  }
-  100% {
-    transform: translate3d(6%, 0, 0);
-  }
-}
-
-@keyframes drift {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  100% {
-    transform: translate3d(8%, -6%, 0) scale(1.12);
-  }
-}
-
-@keyframes blink-open {
-  0%,
-  91% {
-    opacity: 1;
-  }
-  92%,
-  96% {
-    opacity: 0;
-  }
-  97%,
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes blink-closed {
-  0%,
-  91% {
-    opacity: 0;
-  }
-  92%,
-  96% {
-    opacity: 1;
-  }
-  97%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes wander {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  35% {
-    transform: translate3d(14px, -16px, 0);
-  }
-  70% {
-    transform: translate3d(-11px, -30px, 0);
-  }
-  100% {
-    transform: translate3d(9px, -44px, 0);
-  }
-}
-
-@keyframes rise {
-  0% {
-    transform: translate3d(0, 0, 0) scale(0.55);
-    opacity: 0;
-  }
-  14% {
-    opacity: 0.85;
-  }
-  72% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translate3d(20px, -190px, 0) scale(1);
-    opacity: 0;
-  }
-}
-
-@keyframes orbit {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes breathe {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(1.05);
   }
 }
 
@@ -780,6 +562,25 @@
   }
 }
 
+/* Um ladrilho exato — ver `.text-shimmer`. Qualquer outro valor faz saltar. */
+@keyframes text-pan {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes tabbar-fill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 @keyframes slide-down-panel {
   from {
     opacity: 0;
@@ -788,5 +589,299 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ==========================================================================
+   NEBULA NOTURNO — componentes novos desta rodada
+   --------------------------------------------------------------------------
+   Campo de estrelas do hero, cartao com interatividade "tech-premium"
+   (spotlight + abas com auto-avanco), o livro de licoes e a revelacao do
+   curriculo. Ficam num bloco a parte para nao se misturar ao sistema
+   "Jardim Noturno" que os precede neste arquivo.
+   ========================================================================== */
+@layer components {
+  /* ------------------------------------------------- cinturao de Orion ---- */
+  /* O detalhe que se repete na marca, no rodape e nos rotulos: tres estrelas
+     em diagonal, como o cinturao da constelacao. */
+  .orion-belt {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transform: rotate(-12deg);
+  }
+
+  .orion-belt i {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--color-gold);
+  }
+
+  .orion-belt i:nth-child(2) {
+    width: 5px;
+    height: 5px;
+    box-shadow: 0 0 6px var(--color-gold);
+  }
+
+  /* --------------------------------------------------- cartao "spotlight" - */
+  /* Luz radial que segue o cursor sobre o cartao de projeto — o toque
+     "tech-premium" pedido para a pagina de Projetos. */
+  .spotlight {
+    --mx: 50%;
+    --my: 50%;
+    position: relative;
+  }
+
+  .spotlight::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.25s var(--ease-organic);
+    background: radial-gradient(280px circle at var(--mx) var(--my), color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 62%);
+    pointer-events: none;
+  }
+
+  .spotlight:hover::after,
+  .spotlight:focus-within::after {
+    opacity: 1;
+  }
+
+  /* Botao magnetico: o deslocamento em si e feito por JS (translate inline);
+     aqui so garantimos que ele anima de volta ao soltar o cursor. */
+  .magnetic {
+    transition: transform 0.2s var(--ease-organic);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .magnetic {
+      transition: none;
+    }
+  }
+
+  /* ------------------------------------------- abas com auto-avanco (tabbar) */
+  .tabbar-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tabbar-btn {
+    position: relative;
+    flex: 1 1 118px;
+    text-align: left;
+    padding: 8px 6px 14px;
+    color: var(--color-subtle);
+    transition: color 0.3s var(--ease-organic);
+  }
+
+  .tabbar-btn[aria-selected='true'] {
+    color: var(--color-fg);
+  }
+
+  .tabbar-btn::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--color-line);
+  }
+
+  .tabbar-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(120deg, #6d28d9, var(--color-accent) 55%, var(--color-iris));
+  }
+
+
+  /*
+    Revelacao "pin and morph": um cartao prende na rolagem, encolhe e gira ate
+    virar vertical — usado para fechar a pagina de Projetos revelando as
+    Tecnologias (ver TechReveal.tsx). Nomeado de forma generica porque o
+    mecanismo em si nao depende do conteudo de destino.
+  */
+  .pin-reveal-wrap {
+    position: relative;
+    /* Perspectiva no container: o rotateY do cartao-lider precisa dela pra
+       parecer um giro real em profundidade, nao um simples achatamento. */
+    perspective: 1400px;
+  }
+
+  .pin-reveal-stage {
+    /*
+      So uma area de encenacao — sem moldura, borda ou fundo proprios. Quem
+      da a aparencia de cartao e o proprio `.card-morph--lead` (ver
+      `.card-morph-out`/`.card-morph-cover`); se a stage tivesse a sua
+      propria moldura por cima, pareceria uma SEGUNDA telinha encaixotando a
+      primeira — exatamente o que nao queremos.
+    */
+    position: sticky;
+    top: 5.5rem;
+    height: min(64vh, 480px);
+    will-change: transform, width, height;
+  }
+
+  /*
+    Gradiente do titulo em movimento — usado na revelacao de Tecnologias, onde
+    o titulo de saida ("Projetos & Desenvolvimento") ganha esse "aceno" antes
+    de o cartao virar vertical.
+  */
+  /*
+    Duas condicoes para o brilho correr sem emenda:
+
+    1. O gradiente e HORIZONTAL (90deg). Num angulo diagonal, os ladrilhos
+       nao casam quando a imagem se repete de lado — aparecia um corte.
+    2. O passo da animacao e exatamente UM ladrilho. Com `background-size:
+       200%`, a posicao `200%` desloca 2x a largura da caixa — a largura
+       cheia da imagem. (Antes: imagem de 220% andando 264% — sobrava um
+       pedaco a cada volta, e por isso o brilho "pulava" a cada 6s.)
+
+    Como a primeira e a ultima parada do gradiente sao a MESMA cor, a emenda
+    entre um ladrilho e o proximo e invisivel: o movimento e continuo.
+  */
+  .text-shimmer {
+    background-image: linear-gradient(
+      90deg,
+      #6d28d9 0%,
+      var(--color-accent-strong) 25%,
+      var(--color-iris) 50%,
+      var(--color-accent-strong) 75%,
+      #6d28d9 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: text-pan 9s linear infinite;
+  }
+
+  /*
+    De dia, `--color-accent-strong`/`--color-iris` sao escuros de proposito
+    (precisam ler como texto pequeno em outro lugar, 4,5:1). Reusa-los aqui
+    deixava o arco do degrade estreito demais — 12 pontos de luminosidade,
+    lia como cor unica, nao como degrade. O nome e texto GRANDE (>=96px): so
+    exige 3:1, nao 4,5:1, entao ganha um arco proprio, bem mais largo (33
+    pontos), sem tocar nos tokens que o resto da interface depende.
+  */
+  :root[data-theme='light'] .text-shimmer {
+    background-image: linear-gradient(
+      90deg,
+      #4c1d95 0%,
+      #6d28d9 25%,
+      #7b7ee0 50%,
+      #6d28d9 75%,
+      #4c1d95 100%
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .text-shimmer {
+      animation: none;
+      background-position: 0% center;
+    }
+  }
+
+  .card-morph--lead.is-framed::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(120deg, #6d28d9, var(--color-accent) 55%, var(--color-iris));
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /*
+    O projeto principal vira o cartao central (ver CardsToTech.tsx) e as
+    outras quatro categorias saem de tras dele: duas para os lados, duas por
+    baixo, como se surgissem de fora da tela.
+  */
+  .card-morph {
+    border-radius: 1.125rem;
+    overflow: hidden;
+    will-change: transform, width, height;
+  }
+
+  .card-morph--lead {
+    /*
+      Mesma amarra top:50%/left:50% + margem negativa dos satelites (ver
+      `.card-morph--satellite`) — nao centralizacao por flexbox. Os dois
+      compartilham exatamente o mesmo ponto de referencia, entao nunca
+      desalinham um do outro.
+    */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+  }
+
+  .card-morph--satellite {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    /* Mesmo tamanho do cartao-lider (ver LEAD_TARGET em CardsToTech.tsx) —
+       os cinco cartoes tem que ficar identicos, nunca com tamanhos diferentes. */
+    width: 260px;
+    height: 300px;
+    margin-top: -150px;
+    margin-left: -130px;
+    transition: opacity 0.2s ease;
+  }
+
+  .card-morph-cover {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.5rem;
+    border-radius: inherit;
+    background: linear-gradient(160deg, var(--color-surface-2), var(--color-night));
+    border: 1px solid var(--color-line);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .card-morph--lead .card-morph-cover {
+    position: absolute;
+    inset: 0;
+    /* Sempre por cima de `.card-morph-out` (ver abaixo), nao importa a
+       ordem no DOM — sem isso o cartao real, com z-index proprio, poderia
+       ficar por cima mesmo depois de a opacidade do cartao real chegar a 0. */
+    z-index: 2;
+  }
+
+  /*
+    A face "de saida" do cartao-lider: o ULTIMO projeto de verdade
+    (`ProjectShowcase`, ver CardsToTech.tsx) — travado numa largura fixa em
+    px e so escalado (`scale()`), nunca reflui, pra continuar legivel
+    encolhendo. Some conforme o cartao gira, dando lugar ao
+    `.card-morph-cover` de Tecnologias.
+  */
+  .card-morph-out {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transform-origin: 0% 0%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-morph,
+    .card-morph-cover {
+      transition: none;
+    }
   }
 }

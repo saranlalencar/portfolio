@@ -7,13 +7,22 @@ import { Footer } from '@/components/layout/Footer'
 import { ProjectDetail } from '@/components/projects/ProjectDetail'
 import { Hero } from '@/sections/Hero'
 import { About } from '@/sections/About'
-import { Journey } from '@/sections/Journey'
 import { Projects } from '@/sections/Projects'
-import { Skills } from '@/sections/Skills'
-import { Process } from '@/sections/Process'
-import { Education } from '@/sections/Education'
 import { Contact } from '@/sections/Contact'
 
+/**
+ * O site inteiro e UMA rolagem so: Hero -> Sobre -> Projetos -> Tecnologias
+ * -> Contato. Nao ha paginas separadas, e todo item do menu rola ate o seu
+ * destino.
+ *
+ * Tecnologias nao e uma secao propria: ela nasce DENTRO de Projetos, quando
+ * o ultimo projeto encolhe e vira os cartoes de tecnologia (`CardsToTech`).
+ * A ancora `#tecnologias` mora exatamente no ponto da rolagem em que esses
+ * cartoes se formam.
+ *
+ * A unica coisa que sai do fluxo e o detalhe de UM projeto, um overlay por
+ * cima da pagina (`useProjectRoute`).
+ */
 export default function App() {
   const { slug, open, close } = useProjectRoute()
 
@@ -43,11 +52,7 @@ export default function App() {
         <main id="conteudo">
           <Hero />
           <About />
-          <Journey />
           <Projects onOpenProject={open} />
-          <Skills />
-          <Process />
-          <Education />
           <Contact />
         </main>
 

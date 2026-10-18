@@ -1,13 +1,13 @@
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { profile } from '@/data'
 import { isFilled, placeholderLabel } from '@/lib/placeholder'
+import { buttonClasses } from '@/components/ui/Button'
 import { Reveal } from '@/components/ui/Reveal'
-import { Section } from '@/components/ui/Section'
+import { Section, SectionHeading } from '@/components/ui/Section'
 import { ArrowUpRight, Download, GitHub, LinkedIn, Mail } from '@/components/ui/Icons'
 import { Pending, pendingActionClasses } from '@/components/ui/Pending'
 import { SmartLink } from '@/components/ui/SmartLink'
 import { NightSky } from '@/components/decor/NightSky'
-import { PixelSprite } from '@/components/decor/PixelSprite'
 
 const CARD = 'surface surface-interactive group flex w-full items-center gap-4 p-5'
 
@@ -59,40 +59,44 @@ function Channel({ value, kind = 'url', label, icon }: ChannelProps) {
 
 export function Contact() {
   return (
-    <Section id="contato" tone="night-2" labelledBy="contato-titulo" className="overflow-hidden">
-      {/* Sem lua aqui: a paisagem do rodape vem logo abaixo e ja tem a dela —
-          duas luas na mesma tela quebrariam a continuidade da cena. */}
+    <Section id="contato" tone="night-2" labelledBy="contato-titulo">
+      {/*
+        Sem `overflow-hidden` na secao: o halo tem 64px de desfoque e, se fosse
+        recortado pela borda, deixaria um corte reto bem na emenda com o
+        rodape. Deixando transbordar, ele costura uma tela na outra.
+      */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <NightSky count={34} seed={31337} className="opacity-80" />
-        <div className="glow left-1/2 top-[-6rem] size-[36rem] -translate-x-1/2 bg-aura-cool/18" />
+        {/*
+          Duas fontes de luz — ver a mesma decisao em `SectionAura`. So a
+          COR vai inline: a forca (`--glow-mix`) precisa continuar vindo do
+          CSS (ver tema claro em index.css), nunca inline — um valor inline
+          venceria a troca de tema para sempre, já que estilo inline sempre
+          ganha de regra de folha de estilo.
+        */}
+        <div
+          className="glow left-1/2 top-[-6rem] size-[36rem] -translate-x-1/2"
+          style={{ '--glow-color': 'var(--color-aura-cool)' } as CSSProperties}
+        />
+        <div
+          className="glow glow--secondary right-[-6rem] bottom-[-12rem] size-[30rem]"
+          style={{ '--glow-color': 'var(--color-accent)' } as CSSProperties}
+        />
       </div>
 
       <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
-        <Reveal>
-          <p className="eyebrow flex items-center gap-2.5">
-            <PixelSprite name="estrela" size={11} />
-            <span>
-              07
-              <span aria-hidden="true" className="mx-2 text-line-strong">
-                /
-              </span>
-              Contato
-            </span>
-          </p>
+        <div>
+          <SectionHeading
+            title={profile.contact.heading}
+            titleId="contato-titulo"
+            description={profile.contact.message}
+          />
 
-          <h2 id="contato-titulo" className="text-title mt-5 text-fg">
-            {profile.contact.heading}
-          </h2>
-
-          <p className="mt-5 max-w-md text-[0.9375rem] leading-relaxed text-muted sm:text-base">
-            {profile.contact.message}
-          </p>
-
-          <div className="mt-8">
+          <Reveal delay={80} className="mt-8">
             <SmartLink
               value={profile.links.resume}
               kind="download"
-              className="group/btn inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-[0.9375rem] font-semibold text-night transition-all duration-400 hover:bg-accent-strong hover:shadow-[0_14px_44px_-16px_rgba(143,196,106,0.7)] motion-safe:hover:-translate-y-0.5"
+              className={buttonClasses('primary', 'lg')}
               pendingClassName={pendingActionClasses}
               pendingContent={
                 <>
@@ -104,7 +108,7 @@ export function Contact() {
               <Download width={18} height={18} aria-hidden="true" />
               Baixar currículo
             </SmartLink>
-          </div>
+          </Reveal>
 
           {profile.location ? (
             <p className="mt-8 flex flex-wrap items-center gap-2 text-sm text-subtle">
@@ -116,7 +120,7 @@ export function Contact() {
               )}
             </p>
           ) : null}
-        </Reveal>
+        </div>
 
         <Reveal delay={120} className="space-y-4">
           <Channel value={profile.links.linkedin} label="LinkedIn" icon={<LinkedIn width={18} height={18} />} />

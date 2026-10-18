@@ -9,8 +9,8 @@ import type { Project, ProjectCategoryId } from '@/types/content'
  * detalhe aparecem automaticamente — nenhum componente precisa ser tocado.
  *
  * Regras da interface:
- *  - `featured: true` transforma o projeto no cartao grande de destaque.
- *    Use em apenas um projeto (o primeiro encontrado vence).
+ *  - Todo projeto usa o mesmo cartao grande (com abas Problema/Solução/
+ *    Aprendizado) — nenhum e "o principal", nao existe mais destaque.
  *  - Campos com placeholder ([ADICIONAR ...]) sao exibidos como pendentes.
  *  - Links com placeholder nao viram <a> — nao existe link quebrado no site.
  *  - Os filtros so aparecem quando ha projetos suficientes (ver FILTER_THRESHOLD)
@@ -44,7 +44,6 @@ export const projects: Project[] = [
     category: 'sistemas',
     categoryLabel: 'Sistema de Gestão',
     status: 'em-desenvolvimento',
-    featured: true,
     period: 'Jul 2026 — atual',
 
     summary: '[ADICIONAR RESUMO CURTO DO PROJETO — 1 OU 2 LINHAS]',
@@ -81,7 +80,18 @@ export const projects: Project[] = [
 
     challenges: ['[ADICIONAR DESAFIO]', '[ADICIONAR DESAFIO]'],
 
-    learnings: ['[ADICIONAR APRENDIZADO]', '[ADICIONAR APRENDIZADO]'],
+    /**
+     * Uma licao por pagina no "Diario de aprendizado" (aba Aprendizado do
+     * cartao de destaque). Os quatro prompts abaixo seguem o que o projeto ja
+     * descreve em `solution`/`features` — substitua cada um pelo que voce
+     * realmente aprendeu, sem pressa de preencher todos de uma vez.
+     */
+    learnings: [
+      '[ADICIONAR APRENDIZADO SOBRE BANCO DE DADOS/MIGRATIONS]',
+      '[ADICIONAR APRENDIZADO SOBRE A CONCILIAÇÃO BANCÁRIA AUTOMÁTICA]',
+      '[ADICIONAR APRENDIZADO SOBRE O MOTOR DE ORÇAMENTO/MARKUP AJUSTÁVEL]',
+      '[ADICIONAR APRENDIZADO SOBRE CONVERSAR COM QUEM USA O SISTEMA]',
+    ],
 
     evolution: ['[ADICIONAR PRÓXIMO PASSO DO PROJETO]', '[ADICIONAR PRÓXIMO PASSO DO PROJETO]'],
 
@@ -190,7 +200,6 @@ export const projects: Project[] = [
  *   category: 'frontend',                // frontend | backend | mobile | sistemas | academicos | outros
  *   categoryLabel: 'Aplicação Web',      // rótulo livre exibido no cartão
  *   status: 'em-desenvolvimento',        // em-desenvolvimento | concluido | planejado | pausado
- *   featured: false,
  *   period: '2026',
  *   summary: 'Uma ou duas linhas sobre o projeto.',
  *   problem: 'Qual problema real ele resolve.',
